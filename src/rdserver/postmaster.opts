@@ -1,0 +1,1 @@
+/usr/local/Cellar/postgresql@14/14.11_1/bin/postgres "-D" "rdserver"
