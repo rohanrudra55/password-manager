@@ -4,7 +4,7 @@ sift = cv2.SIFT_create()
 
 bf = cv2.BFMatcher(cv2.NORM_L2,crossCheck=True)
 
-img1 = cv2.imread('face_reference/reference_img_1.jpg', 0)
+img1 = cv2.imread('../src/assets/face_reference/reference_img_1.jpg', 0)
 # img2 = cv2.imread('face_reference/reference_img_2.jpg', 0)
 cap = cv2.VideoCapture(0)
 

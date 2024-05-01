@@ -6,17 +6,7 @@ from email.mime.multipart import MIMEMultipart
 
 
 def format_msg(otp):
-    # MESSAGE
-    # html_content = f"""
-    # <html>
-    #     <body>
-    #         <h3>This is the OTP for Password Manager.</h3>
-    #         <p>Enter the code below:</p>
-    #         <h1 style="background-color: #fff2cc;" >{otp}</h1>
-    #     </body>
-    # </html>
-    # """
-    with open("message.html", 'r') as html_file:
+    with open("../../src/assets/email_body.html", 'r') as html_file:
         html_file_content = html_file.read().replace("hschcsbbkk", str(otp))
 
     html_content = html_file_content
@@ -30,7 +20,13 @@ def format_msg(otp):
 def generate_otp(length=6):
     otp = ''.join([str(random.randint(0, 9)) for _ in range(length)])
     return otp
+def generate_random_two_digit_number():
+    while True:
+        digit1 = random.randint(0, 9)
+        digit2 = random.randint(0, 9)
 
+        if digit1 != digit2:
+            return digit1 * 10 + digit2
 
 def send_otp_via_email(otp, recipient_email):
     sender_email = "snowwing14@gmail.com"
