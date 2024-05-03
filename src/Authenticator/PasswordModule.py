@@ -5,40 +5,50 @@ import secrets
 import base64
 
 
-class Password:
-    def __init__(self):
-        self.key = Fernet.generate_key()
-        self.fernet = Fernet(self.key)
+def check_hash(plain_text_password, stored_hash, stored_salt):
+    hashed_password = bcrypt.hashpw(plain_text_password.encode('utf-8'), stored_salt)
+    return hashed_password == stored_hash
 
-    def encrypt(self, text):
-        encrypted_text = self.fernet.encrypt(text.encode())
-        return encrypted_text.decode()
 
-    def decrypt(self, encrypted_text):
-        decrypted_text = self.fernet.decrypt(encrypted_text.encode()).decode()
-        return decrypted_text
+def validate(password):
+    # unwanted_chars = "!@#$%^&*()"
+    min_length = 10
+    if len(password) < min_length:
+        return False
 
-    def generate_hash_and_salt(self, plain_text_password):
-        salt = bcrypt.gensalt()
-        hashed_password = bcrypt.hashpw(plain_text_password.encode('utf-8'), salt)
-        return hashed_password, salt
+    # for char in unwanted_chars:
+    #     if char in password:
+    # return False
+    return True
 
-    def check_hash(self, plain_text_password, stored_hash, stored_salt):
-        hashed_password = bcrypt.hashpw(plain_text_password.encode('utf-8'), stored_salt)
-        return hashed_password == stored_hash
 
-    def suggest(self,length=32):
-        random_bytes = secrets.token_bytes(length)
-        password_string = base64.b64encode(random_bytes).decode('utf-8')
-        return password_string
+def suggest(length=32):
+    random_bytes = secrets.token_bytes(length)
+    password_string = base64.b64encode(random_bytes).decode('utf-8')
+    return password_string
 
-    def validate(self,text):
-        unwanted_chars = "!@#$%^&*()"
-        min_length = 10
-        if len(text) < min_length:
-            return False
 
-        for char in unwanted_chars:
-            if char in text:
-                return False
-        return True
+def generate_hash_and_salt(plain_text_password):
+    salt = bcrypt.gensalt()
+    hashed_password = bcrypt.hashpw(plain_text_password.encode('utf-8'), salt)
+    return hashed_password, salt
+
+
+def create_key():
+    return Fernet.generate_key()
+
+
+def encrypt(key, text):
+    fernet = Fernet(key)
+    encrypted_text = fernet.encrypt(text.encode())
+    return encrypted_text
+
+
+def decrypt(key, encrypted_text):
+    fernet = Fernet(key)
+    decrypted_text = fernet.decrypt(encrypted_text.encode())
+    return decrypted_text
+
+
+# test case
+

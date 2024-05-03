@@ -5,6 +5,15 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 
+def create():
+    while True:
+        placeholder = random.randint(0, 5)
+        key = random.randint(0, 9)
+
+        if placeholder != key:
+            return placeholder * 10 + key
+
+
 class Token:
 
     def __init__(self):
@@ -51,11 +60,3 @@ class Token:
             print("Authentication successful!")
         else:
             print("Invalid OTP. Authentication failed.")
-
-    def create(self):
-        while True:
-            placeholder = random.randint(0, 5)
-            key = random.randint(0, 9)
-
-            if placeholder != key:
-                return placeholder * 10 + key
