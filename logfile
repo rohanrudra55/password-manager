@@ -170,3 +170,7 @@
 2024-05-03 11:45:29.694 IST [3933] ERROR:  syntax error at or near "quite" at character 1
 2024-05-03 11:45:29.694 IST [3933] STATEMENT:  quite
 	;
+2024-05-03 11:52:20.290 IST [3515] LOG:  received smart shutdown request
+2024-05-03 11:52:20.292 IST [3515] LOG:  background worker "logical replication launcher" (PID 3522) exited with exit code 1
+2024-05-03 11:52:20.292 IST [3517] LOG:  shutting down
+2024-05-03 11:52:20.302 IST [3515] LOG:  database system is shut down

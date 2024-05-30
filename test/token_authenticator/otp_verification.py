@@ -6,7 +6,7 @@ from email.mime.multipart import MIMEMultipart
 
 
 def format_msg(otp):
-    with open("../../src/assets/email_body.html", 'r') as html_file:
+    with open("../../src/assets/email_body_otp.html.html", 'r') as html_file:
         html_file_content = html_file.read().replace("hschcsbbkk", str(otp))
 
     html_content = html_file_content

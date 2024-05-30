@@ -60,3 +60,7 @@ ADD COLUMN key_byte BYTEA;
 ```commandline
 exit;
 ```
+10. Delete table
+```commandline
+DROP TABLE table_name;
+```
