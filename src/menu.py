@@ -75,7 +75,7 @@ def manager_system():
                 elif choice_in == 'b':
                     pass
                 else:
-                    site = input("Site: ")
+                    site = choice_in
                     obj.view_stored_password(site)
 
             elif choice == '2':
@@ -91,3 +91,7 @@ def manager_system():
 
     else:
         print("Error: Invalid input. Enter \'-h\' for help.")
+
+
+if __name__ == "__main__":
+    manager_system()

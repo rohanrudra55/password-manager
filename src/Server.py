@@ -122,9 +122,9 @@ class Connect:
         count = 0
         obj = FaceModule.Biometric()
         obj.verify(self.stored_token)
+        print('Details:')
         for row in self.stored_user_data:
             count = 1 + count
-            print('Details:')
             if row[self.table_col] == site:
                 print(f'({count})-->\n'
                       f'Username: {row[0]}\n'

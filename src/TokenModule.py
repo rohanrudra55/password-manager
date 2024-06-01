@@ -54,7 +54,6 @@ def verify(recipient_email, token):
     placeholder = token // 10
     key = token % 10
     temp_obj = Token()
-    return True
     otp = temp_obj.generate_otp(5)
     temp_obj.settemplate('cls6789678')
     temp_obj.send_mail(otp, recipient_email)

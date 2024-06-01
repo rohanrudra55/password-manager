@@ -34,12 +34,12 @@ class Biometric:
                     break
 
             counter += 1
-            cv2.putText(frame, "Not Match" if not face_match else "Matching...", (20, 450), cv2.FONT_HERSHEY_PLAIN, 2,
-                        (0, 0, 255), 3)
+            # cv2.putText(frame, "Not Match" if not face_match else "Matching...", (20, 450), cv2.FONT_HERSHEY_PLAIN, 2,
+            #             (0, 0, 255), 3)
 
-            cv2.namedWindow("LIVE", cv2.WINDOW_GUI_NORMAL)
-            cv2.resizeWindow("LIVE", 640, 480)
-            cv2.imshow("LIVE", frame)
+            # cv2.namedWindow("LIVE", cv2.WINDOW_GUI_NORMAL)
+            # cv2.resizeWindow("LIVE", 640, 480)
+            # cv2.imshow("LIVE", frame)
             key = cv2.waitKey(1)
             if key == ord("q"):
                 break
