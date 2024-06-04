@@ -3,12 +3,18 @@
 ---
 
 ### Requirements 
-- Python
-- PostgreSQL
+- Python 3.9.6
+- cryptography==42.0.5
+- deepface==0.0.90
+- opencv_python==4.9.0.80
+- psycopg2_binary==2.9.9
+- python_bcrypt==0.3.2
+- secret==0.8
+- postgresql@14
 
 ---
 
-### Commands
+### Postgres Commands 
 1. Start server (from the root repo)
 ```commandline
 pg_ctl -D database -l logfile.log start
