@@ -1,5 +1,5 @@
-import Server
-import PasswordModule
+from src.server import Connect
+from src.Authenticator.PasswordModule import Data
 import getpass
 import argparse
 
@@ -23,16 +23,16 @@ def manager_system():
             print("Password should contains 10 characters!")
             password = getpass.getpass("Enter your password: ")
             password_rc = getpass.getpass("Confirm your password: ")
-            if password != password_rc and not PasswordModule.validate(password):
+            if password != password_rc and not Data.validate(password):
                 print('In valid password. Please try again!')
                 pass
 
             email = input('Enter you valid email: ')
-            if not PasswordModule.is_valid_email(email):
+            if not Data.is_valid_email(email):
                 print('Invalid mail ID. Try Again!')
                 pass
 
-            obj = Server.Connect()
+            obj = Connect()
             if obj.add_user(username, email, password):
                 print("successfully Registered!")
                 break
@@ -46,7 +46,7 @@ def manager_system():
         Sign Up Page for System
         """
         username = args.signin
-        obj = Server.Connect()
+        obj = Connect()
         while True:
             if len(username) > 45:
                 print("Invalid Username!")
