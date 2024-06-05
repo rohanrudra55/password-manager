@@ -4,3 +4,4 @@ opencv_python==4.9.0.80
 psycopg2_binary==2.9.9
 python_bcrypt==0.3.2
 secret==0.8
+tf-keras
