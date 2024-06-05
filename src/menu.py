@@ -18,10 +18,14 @@ def manager_system():
     args = parser.parse_args()
 
     if args.onserver:
+        # os.system('pg_ctl -D database initdb')
+        # os.system('unzip database.zip')
         os.system('pg_ctl -D database -l logfile.log start')
     
     elif args.offserver:
         os.system('pg_ctl -D database stop')
+        # os.system('zip -r database.zip database')
+        # os.system('rm -rf database')
         os.system('rm -rf logfile.log')
         exit(0)
 
