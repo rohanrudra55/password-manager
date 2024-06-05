@@ -1,14 +1,30 @@
-from src.server import Connect
-from src.Authenticator.PasswordModule import Data
 import getpass
 import argparse
+import os
+
+# Suppress TensorFlow INFO and WARNING messages
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
+from src.server import Connect
+from src.Authenticator.PasswordModule import Data
 
 
 def manager_system():
     parser = argparse.ArgumentParser(description='Password Manager')
     parser.add_argument('-i', '--signin', type=str, help='Sign in to an existing account')
     parser.add_argument('-u', '--signup', type=str, help='Sign up to create a new account')
+    parser.add_argument('-on', '--onserver', type=bool, help='On Postgres Server')
+    parser.add_argument('-off', '--offserver', type=bool, help='Off Postgres Server')
     args = parser.parse_args()
+
+    if args.onserver:
+        os.system('pg_ctl -D database -l logfile.log start')
+    
+    elif args.offserver:
+        os.system('pg_ctl -D database stop')
+        os.system('rm -rf logfile.log')
+        exit(0)
+
 
     if args.signup:
         """
