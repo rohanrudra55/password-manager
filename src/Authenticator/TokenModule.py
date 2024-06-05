@@ -60,7 +60,7 @@ class Token:
         modified_otp = otp[:placeholder] + str(key) + otp[placeholder:]
 
         if entered_otp == modified_otp:
-            print("Authentication successful!")
+            print("OTP Authenticated!")
             return True
         else:
             print("Invalid OTP. Authentication failed.")

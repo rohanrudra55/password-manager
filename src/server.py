@@ -5,6 +5,7 @@ from src.Authenticator.TokenModule import Token
 from src.Authenticator.PasswordModule import Data
 
 
+
 class Connect:
     def __init__(self):
         self.stored_token = 0
@@ -28,9 +29,11 @@ class Connect:
             hashed_password, salt = Data.generate_hash_and_salt(password)
             token = Token.create()
             key = Data.create_key()
-            sql = ("INSERT INTO users (username, password_hash, salt, key, key_token, email) VALUES (%s, %s, %s, %s, "
+            tmp_token =  Data.encrypt(key, str(token))
+            tmp_email = Data.encrypt(key, email)
+            sql = ("INSERT INTO users_enc (username, password_hash, salt, key, key_token, email) VALUES (%s, %s, %s, %s, "
                    "%s, %s)")
-            cursor.execute(sql, (username, hashed_password, salt, key, token, email))
+            cursor.execute(sql, (username, hashed_password, salt, key, tmp_token, tmp_email))
             obj = Token(os.path.dirname(__file__))
             obj.set_template('cls6789654')
             obj.send_mail(token, email)
@@ -47,7 +50,6 @@ class Connect:
         return False
 
     def verify_user_signin(self, username, password):
-        # password_auth = PasswordModule
         try:
             connection = psycopg2.connect(
                 dbname="storage",
@@ -56,15 +58,17 @@ class Connect:
                 host="127.0.0.1"
             )
             cursor = connection.cursor()
-            sql = "SELECT * FROM users WHERE username = %s"
+            sql = "SELECT * FROM users_enc WHERE username = %s"
             cursor.execute(sql, (username,))
             connection.commit()
             result = cursor.fetchall()
             connection.close()
-            if Data.check_hash(password, result[0][2].tobytes(), result[0][3].tobytes()):
-                self.stored_secret_key = result[0][4].tobytes()
-                self.stored_token = result[0][5]
-                self.stored_email = result[0][6]
+            if Data.check_hash(password, result[0][1].tobytes(), result[0][2].tobytes()):
+                self.stored_secret_key = result[0][3].tobytes()
+                # self.stored_token = result[0][5]
+                self.stored_token = int(Data.decrypt(self.stored_secret_key, result[0][4].tobytes()).decode("utf-8"))
+                # self.stored_email = result[0][6]
+                self.stored_email = Data.decrypt(self.stored_secret_key, result[0][5].tobytes()).decode("utf-8")
                 self.user_verified = True
                 return True
         except (Exception, psycopg2.Error) as error:
@@ -137,5 +141,5 @@ class Connect:
 if __name__ == "__main__":
     obj_1 = Connect()
     obj_1.verify_user_signin('rohanrudra', '5977')
-    obj_1.view_stored_data()
-    obj_1.view_stored_password('rr')
+    # obj_1.view_stored_data()\
+    # obj_1.view_stored_password('rr')

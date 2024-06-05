@@ -59,7 +59,7 @@ class Biometric:
                 # Press 's' to save the image
                 if cv2.waitKey(1) == ord('s'):
                     cv2.imwrite(filename, frame)
-                    print(f"Image saved at {filename}")
+                    # print(f"Image saved at {filename}")
                     break
             else:
                 break

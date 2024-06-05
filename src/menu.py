@@ -69,10 +69,13 @@ def manager_system():
                 break
 
             password = getpass.getpass("Enter your password: ")
-            if not obj.verify_user_signin(username, password):
-                print("Invalid Password! Try again.")
-                pass
-            break
+            if password == 'q':
+                exit(0)
+                
+            if  obj.verify_user_signin(username, password):
+                break
+            print('Invalid Password! Try again.\n'
+                  'Press (q) to exit\n')
 
         while True:
             choice = input('Press (1) to view stored passwords\n'
